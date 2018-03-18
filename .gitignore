@@ -19,3 +19,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+#Reference file ( Files used for project reference, whihc is not part of code )
+/reference-files
