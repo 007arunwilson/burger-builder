@@ -12,14 +12,25 @@ class BurgerBuilder extends Component {
             bacon:0,
             cheese:0,
             meat:0,
-        }
+        },
+        price:0,
     }
+
+    addIngredient = (ingredientType) =>{
+
+        let newState = {...this.state};
+        let oldIngredientValue = newState.ingredients[ingredientType];
+        let newIngredientValue = oldIngredientValue + 1;
+        newState.ingredients[ingredientType] = newIngredientValue;
+        this.setState(newState);
+
+    };
 
     render(){
         return (
             <Aux>
                 <Burger ingredients={this.state.ingredients} />
-                <BuildControls/>
+                <BuildControls  addIngredientFn={this.addIngredient} />
             </Aux>
         )
 
