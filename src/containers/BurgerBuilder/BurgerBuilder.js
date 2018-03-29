@@ -13,7 +13,14 @@ class BurgerBuilder extends Component {
             cheese:0,
             meat:0,
         },
-        price:0,
+        totalPrice:0,
+    }
+
+    IngredientPrice = {
+        salad:.5,
+        bacon:.7,
+        cheese:.8,
+        meat:1.8,
     }
 
     addIngredientHandler = (ingredientType) =>{
@@ -22,6 +29,8 @@ class BurgerBuilder extends Component {
         let oldIngredientValue = newState.ingredients[ingredientType];
         let newIngredientValue = oldIngredientValue + 1;
         newState.ingredients[ingredientType] = newIngredientValue;
+        newState.totalPrice = (parseFloat(newState.totalPrice)+this.IngredientPrice[ingredientType]).toFixed(2);
+
         this.setState(newState);
 
     };
@@ -37,6 +46,7 @@ class BurgerBuilder extends Component {
         
 
         newState.ingredients[ingredientType] = newIngredientValue;
+        newState.totalPrice = (parseFloat(newState.totalPrice)-this.IngredientPrice[ingredientType]).toFixed(2);
         this.setState(newState);
 
     };
@@ -57,6 +67,7 @@ class BurgerBuilder extends Component {
                 addIngredientFn={this.addIngredientHandler} 
                 removeIngredientFn={this.removeIngredientHandler}
                 disabledBtnInfo={disabledBtnInfo}
+                totalPrice={this.state.totalPrice}
                 />
             </Aux>
         )
