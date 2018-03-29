@@ -12,8 +12,6 @@ const burger = (props) => {
         return preVal.concat(curVal);
     },[]);
 
-    console.log(ingredientsTransformed);
-
     ingredientsTransformed = ingredientsTransformed.length?ingredientsTransformed:<p>Please add some ingredients</p>;
 
     return (

@@ -14,6 +14,7 @@ class BurgerBuilder extends Component {
             meat:0,
         },
         totalPrice:0,
+        purchasable:false,
     }
 
     IngredientPrice = {
@@ -21,6 +22,18 @@ class BurgerBuilder extends Component {
         bacon:.7,
         cheese:.8,
         meat:1.8,
+    }
+
+    updatePurchasableValue = (ingredients)=>{
+
+        let purchasableValue = Object.keys(ingredients)
+                                .map((key_)=>ingredients[key_])
+                                .reduce((prev,cur)=>{
+                                    return prev+cur;
+                                },0);
+
+        this.setState({purchasable:purchasableValue>0})
+
     }
 
     addIngredientHandler = (ingredientType) =>{
@@ -32,6 +45,7 @@ class BurgerBuilder extends Component {
         newState.totalPrice = (parseFloat(newState.totalPrice)+this.IngredientPrice[ingredientType]).toFixed(2);
 
         this.setState(newState);
+        this.updatePurchasableValue( newState.ingredients);
 
     };
 
@@ -43,11 +57,11 @@ class BurgerBuilder extends Component {
         if(oldIngredientValue<=0) return;
 
         let newIngredientValue = oldIngredientValue - 1;
-        
 
         newState.ingredients[ingredientType] = newIngredientValue;
         newState.totalPrice = (parseFloat(newState.totalPrice)-this.IngredientPrice[ingredientType]).toFixed(2);
         this.setState(newState);
+        this.updatePurchasableValue(newState.ingredients);
 
     };
 
@@ -68,6 +82,7 @@ class BurgerBuilder extends Component {
                 removeIngredientFn={this.removeIngredientHandler}
                 disabledBtnInfo={disabledBtnInfo}
                 totalPrice={this.state.totalPrice}
+                purchasable = {this.state.purchasable}
                 />
             </Aux>
         )
