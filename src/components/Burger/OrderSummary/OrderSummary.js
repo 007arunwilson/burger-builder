@@ -14,6 +14,7 @@ const OrderSummary = (props) => {
             <h3>Order Summary</h3>
             <p>A Delicious Burger with following Ingredients :</p>
             {ingredientsSummary}
+            <p><strong>Total Price : {props.totalPrice}$</strong></p>
             <p>Continue to Checkout?</p>
             <Button btnType="Danger" clicked={props.purchaseCancelHandler}  >Cancel</Button>
             <Button btnType="Success" clicked={props.purchaseContinueHandler}  >Purchase</Button>
