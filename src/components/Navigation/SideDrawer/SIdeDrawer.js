@@ -6,15 +6,23 @@ import classes from './SideDrawer.css';
 import Backdrop from '../../UI/Backdrop/Backdrop';
 import Aux from '../../../hoc/Aux';
 
-const SideDrawer = () =>{
+const SideDrawer = (props) =>{
+    
+    let side_drawer_classes = [classes.SideDrawer,classes.Close];
 
+    console.log(side_drawer_classes);
 
+    if(props.isopen){
+
+        side_drawer_classes = [classes.SideDrawer,classes.Open];
+
+    }
 
     return(
         <Aux>
-            <Backdrop  show />
-            <div className={classes.SideDrawer} >
-                <div style={{height:'10%'}} >
+            <Backdrop closeClickHandler={props.closehandler} show={props.isopen} />
+            <div className={side_drawer_classes.join(' ')} >
+                <div style={{height:'10%',marginBottom:'32px'}} >
                     <Logo/>
                 </div>
                 <nav>
