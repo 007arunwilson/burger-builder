@@ -1,16 +1,15 @@
 .NavigationItem{
-    margin: 0px;
+    margin: 10px 0px;
     box-sizing: border-box;
     display: flex;
-    height: 100%;
-    align-items: center;
+    width:100%;
 }
 
 .NavigationItem a {
-    color: #fff;
     text-decoration: none;
-    height: 100%;
-    padding: 16px 10px;
+    width: 100%;
+    color:#8F5c2c;
+    box-sizing: border-box;
     display: block;
     box-sizing: border-box;
 }
@@ -18,6 +17,32 @@
 .NavigationItem a:hover,
 .NavigationItem a:active,
 .NavigationItem a.active {
-    background-color: #8F5c2c;
-    border-bottom: 4px solid #40A4C8;
+    color: #40A4C8;
+}
+
+@media(min-width:500px){
+
+    .NavigationItem{
+        margin: 0px;
+        display: flex;
+        height: 100%;
+        align-items: center;
+        width:auto;
+    }
+    
+    .NavigationItem a {
+        color: #fff;
+        text-decoration: none;
+        height: 100%;
+        padding: 16px 10px;
+    }
+    
+    .NavigationItem a:hover,
+    .NavigationItem a:active,
+    .NavigationItem a.active {
+        background-color: #8F5c2c;
+        border-bottom: 4px solid #40A4C8;
+        color: #fff;
+    }
+
 }
