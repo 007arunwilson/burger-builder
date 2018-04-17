@@ -1,24 +1,37 @@
-import React from 'react';
+import React,{Component} from 'react';
 import classes from './Modal.css';
 import Backdrop from '../Backdrop/Backdrop';
-import Aux from '../../../hoc/Aux';
+import Aux from '../../../hoc/Aux/Aux';
 
-const Modal = (props) => (
+class Modal extends Component {
+
+    shouldComponentUpdate(nextProps, nextState){
+        return nextProps.purchaseMode!=this.props.purchaseMode;
+    }
+
+    render() {
+
+        return (
+            <Aux>
+            <Backdrop show={this.props.purchaseMode} closeClickHandler={this.props.purchaseModeOff} />
+             <div 
+             className={classes.Modal}
+             style={{
+                 transform:this.props.purchaseMode==true?'translateY(0)':'translateY(-100vh)',
+                 opacity:this.props.purchaseMode==true?'1':'0'
+             }}
+             >
+                 {this.props.children}
+             </div>
+         </Aux>
+        );
+
+
+    }
     
-    <Aux>
-       <Backdrop show={props.purchaseMode} closeClickHandler={props.purchaseModeOff} />
-        <div 
-        className={classes.Modal}
-        style={{
-            transform:props.purchaseMode==true?'translateY(0)':'translateY(-100vh)',
-            opacity:props.purchaseMode==true?'1':'0'
-        }}
-        >
-            {props.children}
-        </div>
-    </Aux>
 
-);
+
+}
 
 
 export default Modal;
