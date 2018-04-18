@@ -1,15 +1,14 @@
 import React,{Component} from 'react';
-
 import Aux from '../Aux/Aux';
 import classes from './Layout.css';
-import Toolbar from '../../components/Navigation/Toolbar/Toolbar'
+import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SIdeDrawer';
 
-class layout extends Component{
-
+class layout extends Component  {
+    
     state = {
         showSideDrawer:false,
-    }
+    };
 
 
     sideDrawerCloseHandler = () => {
@@ -34,7 +33,7 @@ class layout extends Component{
                         {this.props.children}
                     </main>
                 </Aux>
-            )
+            );
 
     }
 
