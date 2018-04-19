@@ -6,17 +6,23 @@ const WithAxiosErrorHandler = (WrappedComponent,axiosInstance)=>{
     return class extends Component{
 
         state = {error:null};
+
+        componentWillUnmount(){
+
+            axiosInstance.interceptors.request.eject(this.requestInterInstance);
+            axiosInstance.interceptors.response.eject(this.responseInterInstance);
+            
+        }
         
         componentWillMount(){
-        
-            
-            axiosInstance.interceptors.request.use(request=>{
+
+            this.requestInterInstance =  axiosInstance.interceptors.request.use(request=>{
 
                 this.setState({error:null});
                 return request;
             });
 
-           axiosInstance.interceptors.response.use(response=>response,error=>{
+           this.responseInterInstance = axiosInstance.interceptors.response.use(response=>response,error=>{
 
                 this.setState({error:error});
                 return Promise.reject(error);
