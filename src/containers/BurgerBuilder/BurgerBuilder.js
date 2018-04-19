@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{Component,Fragment} from 'react';
 import Aux from '../../hoc/Aux/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -11,22 +11,35 @@ import WithAxiosErrorHandler from '../../hoc/WithAxiosErrorHandler/WithAxiosErro
 class BurgerBuilder extends Component {
 
     state = {
-        ingredients:{
-            salad:0,
-            bacon:0,
-            cheese:0,
-            meat:0,
-        },
+        ingredients:null,
         totalPrice:0,
         purchasable:false,
         purchaseMode:false,
+        error:null
     }
 
     IngredientPrice = {
-        salad:.5,
-        bacon:.7,
-        cheese:.8,
-        meat:1.8,
+        salad:.8,
+        bacon:.6,
+        cheese:.6,
+        meat:2.1,
+    }
+
+    componentDidMount(){
+
+        axiosInstance.get('https://cis-burger-builder-react.firebaseio.com/ingredients.json')
+        .then(response=>{
+
+            this.setState({ingredients:response.data});
+            this.updatePurchasePrice(response.data);
+
+        })
+        .catch(error=>{
+
+            this.setState({error:error});
+
+        })
+
     }
 
     updatePurchasableValue = (ingredients)=>{
@@ -41,17 +54,33 @@ class BurgerBuilder extends Component {
 
     }
 
+    updatePurchasePrice(currentIngredients){
+
+        let current_price = 0;
+
+        let ingredientKeys = Object.keys(currentIngredients);
+
+        ingredientKeys.map(ingkey=>{
+            current_price+=(currentIngredients[ingkey]*this.IngredientPrice[ingkey]);
+        });
+
+        current_price = parseFloat(current_price).toFixed(2);
+
+        this.updatePurchasableValue(currentIngredients);
+        this.setState({totalPrice:current_price});
+
+
+    }
+
     addIngredientHandler = (ingredientType) =>{
 
         let newState = {...this.state};
         let oldIngredientValue = newState.ingredients[ingredientType];
         let newIngredientValue = oldIngredientValue + 1;
         newState.ingredients[ingredientType] = newIngredientValue;
-        newState.totalPrice = (parseFloat(newState.totalPrice)+this.IngredientPrice[ingredientType]).toFixed(2);
 
         this.setState(newState);
-        this.updatePurchasableValue( newState.ingredients);
-
+        this.updatePurchasePrice(newState.ingredients);
     };
 
     removeIngredientHandler = (ingredientType) =>{
@@ -64,7 +93,6 @@ class BurgerBuilder extends Component {
         let newIngredientValue = oldIngredientValue - 1;
 
         newState.ingredients[ingredientType] = newIngredientValue;
-        newState.totalPrice = (parseFloat(newState.totalPrice)-this.IngredientPrice[ingredientType]).toFixed(2);
         this.setState(newState);
         this.updatePurchasableValue(newState.ingredients);
 
@@ -116,31 +144,51 @@ class BurgerBuilder extends Component {
             disabledBtnInfo[key]  = disabledBtnInfo[key]>0?false:true;
         }
 
-        let orderSummary = <OrderSummary 
-                            purchaseCancelHandler = {this.purchaseModeOffHandler}
-                            purchaseContinueHandler = {this.purchaseContinueHandler}
-                            ingredients={this.state.ingredients}
-                            totalPrice={this.state.totalPrice}
-                            />;
+        let burgerBuilder = <Spinner/>
 
-        if(this.state.loadiing) orderSummary = <Spinner/>;
+        if(this.state.ingredients)
+        {
+
+            let orderSummary = <OrderSummary 
+            purchaseCancelHandler = {this.purchaseModeOffHandler}
+            purchaseContinueHandler = {this.purchaseContinueHandler}
+            ingredients={this.state.ingredients}
+            totalPrice={this.state.totalPrice}
+            />;
+
+            if(this.state.loadiing) 
+            {
+               orderSummary = <Spinner/>;
+            }
+
+            burgerBuilder = <Fragment>
+                                <Burger ingredients={this.state.ingredients} />
+                                    <Modal 
+                                    open={this.state.purchaseMode} 
+                                    closeHandler={this.purchaseModeOffHandler} >
+                                        {orderSummary}
+                                    </Modal>
+                                <BuildControls  
+                                addIngredientFn={this.addIngredientHandler} 
+                                removeIngredientFn={this.removeIngredientHandler}
+                                disabledBtnInfo={disabledBtnInfo}
+                                totalPrice={this.state.totalPrice}
+                                purchasable = {this.state.purchasable}
+                                purchaseModeHandler = {this.purchaseModeHandler}
+                                />
+                            </Fragment>;
+
+        }
 
         return (
             <Aux>
-                <Burger ingredients={this.state.ingredients} />
-                    <Modal 
-                    open={this.state.purchaseMode} 
-                    closeHandler={this.purchaseModeOffHandler} >
-                        {orderSummary}
-                    </Modal>
-                <BuildControls  
-                addIngredientFn={this.addIngredientHandler} 
-                removeIngredientFn={this.removeIngredientHandler}
-                disabledBtnInfo={disabledBtnInfo}
-                totalPrice={this.state.totalPrice}
-                purchasable = {this.state.purchasable}
-                purchaseModeHandler = {this.purchaseModeHandler}
-                />
+                {this.state.error?(
+                <p style={{textAlign:'Center',color:'red'}}>
+                Something went wrong! 
+                <br/>
+                The application can't loaded
+                </p>
+                ):burgerBuilder}
             </Aux>
         )
 
