@@ -12,7 +12,7 @@ const burger = (props) => {
         return preVal.concat(curVal);
     },[]);
 
-    ingredientsTransformed = ingredientsTransformed.length?ingredientsTransformed:<p>Please add some ingredients</p>;
+    ingredientsTransformed = ingredientsTransformed.length?ingredientsTransformed:<p style={{color:'rgb(111, 111, 111)',fontSize:'12px',fontWeight:'normal'}}>Please add some ingredients</p>;
 
     return (
         <div className={classes.Burger} >

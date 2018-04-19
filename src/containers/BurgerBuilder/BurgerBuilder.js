@@ -6,9 +6,9 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import axiosInstance from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import WithAxiosErrorHandler from '../../hoc/WithAxiosErrorHandler/WithAxiosErrorHandler';
 
 class BurgerBuilder extends Component {
-
 
     state = {
         ingredients:{
@@ -96,7 +96,7 @@ class BurgerBuilder extends Component {
             },
             deliveryMethod:'fastest'
         }
-        axiosInstance.post('/orders.json',order)
+        axiosInstance.post('/orders',order)
         .then(response=>{
             this.setState({loadiing:false,purchaseMode:false});
         })
@@ -129,8 +129,8 @@ class BurgerBuilder extends Component {
             <Aux>
                 <Burger ingredients={this.state.ingredients} />
                     <Modal 
-                    purchaseMode={this.state.purchaseMode} 
-                    purchaseModeOff={this.purchaseModeOffHandler} >
+                    open={this.state.purchaseMode} 
+                    closeHandler={this.purchaseModeOffHandler} >
                         {orderSummary}
                     </Modal>
                 <BuildControls  
@@ -148,4 +148,4 @@ class BurgerBuilder extends Component {
 
 }
 
-export default BurgerBuilder;
+export default WithAxiosErrorHandler(BurgerBuilder,axiosInstance);
