@@ -8,10 +8,16 @@ const WithAxiosErrorHandler = (WrappedComponent,axiosInstance)=>{
         state = {error:null};
         
         componentDidMount(){
+        
+            
+            axiosInstance.interceptors.request.use(request=>{
+                
+                this.setState({error:null});
+                return request;
+            });
 
            axiosInstance.interceptors.response.use(response=>response,error=>{
 
-                console.log('Axios catched error : ',error,error.message);
                 this.setState({error:error});
                 return Promise.reject(error);
 
