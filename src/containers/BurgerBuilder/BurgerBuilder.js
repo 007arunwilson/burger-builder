@@ -18,20 +18,29 @@ class BurgerBuilder extends Component {
         error:null
     }
 
-    IngredientPrice = {
-        salad:.8,
-        bacon:.6,
-        cheese:.6,
-        meat:2.1,
-    }
+    IngredientPrice = null;
 
     componentDidMount(){
 
-        axiosInstance.get('https://cis-burger-builder-react.firebaseio.com/ingredients.json')
+        axiosInstance.get('https://cis-burger-builder-react.firebaseio.com/ingredients_priced.json')
         .then(response=>{
 
-            this.setState({ingredients:response.data});
-            this.updatePurchasePrice(response.data);
+            const ingredients_priced_response = response.data;
+
+            const ingredients_keys = Object.keys(ingredients_priced_response);
+            let ingredients = {};
+            let ingredients_price = {};
+
+            ingredients_keys.map(ingkey=>{
+
+                ingredients[ingkey] = ingredients_priced_response[ingkey]['initial_value'];
+                ingredients_price[ingkey] = ingredients_priced_response[ingkey]['price'];
+
+            });
+            
+            this.IngredientPrice = ingredients_price
+            this.setState({ingredients:ingredients});
+            this.updatePurchasePrice(ingredients);
 
         })
         .catch(error=>{
@@ -74,7 +83,11 @@ class BurgerBuilder extends Component {
 
     addIngredientHandler = (ingredientType) =>{
 
+        console.log('[addIngredientHandler] :',ingredientType);
+
         let newState = {...this.state};
+
+        console.log(' Satte Ingredients : ',newState.ingredients);
         let oldIngredientValue = newState.ingredients[ingredientType];
         let newIngredientValue = oldIngredientValue + 1;
         newState.ingredients[ingredientType] = newIngredientValue;
