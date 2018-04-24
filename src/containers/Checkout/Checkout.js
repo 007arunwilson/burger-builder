@@ -5,19 +5,42 @@ import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSumm
 class Checkout extends Component{
 
     state = {
-        ingredients:{
-            salad:1,
-            meat:1,
-            cheese:1,
-            bacon:1
+        ingredients:{}
+    }
+
+    checkoutOutContinue(){
+        this.props.history.push('/checkout/contact-data');
+        //this.props.histoy.back();
+        //this.props.histoy.push('/checkout/contact-data');
+    }
+
+    checkoutOutCancel(){
+        this.props.history.goBack();
+        //this.props.history.back();
+    }
+
+    componentDidMount(){
+        
+        let stateIngredients = {};
+
+        const query = new URLSearchParams(this.props.location.search);
+        for (let param of query.entries()) {
+            console.log(param); // yields ['start', '5']
+            stateIngredients[param[0]] = parseInt(param[1]);
+
         }
+
+        this.setState({ingredients:stateIngredients});
     }
 
     render(){
 
         return(
             <div>
-                <CheckoutSummary ingredients={this.state.ingredients} />
+                <CheckoutSummary 
+                oncheckoutcontinue={this.checkoutOutContinue.bind(this)}
+                oncheckoutcancel={this.checkoutOutCancel.bind(this)}
+                ingredients={this.state.ingredients} />
             </div>
         );
 

@@ -44,7 +44,7 @@ const WithAxiosErrorHandler = (WrappedComponent,axiosInstance)=>{
                     <Modal open={this.state.error?true:false} closeHandler={this.clearErrorStateHandler.bind(this)} >
                     {this.state.error?<p style={{textAlign:'center'}} >{this.state.error.message}</p>:null}
                     </Modal>
-                    <WrappedComponent/>
+                    <WrappedComponent {...this.props} />
                 </Fragment>
             );
 
