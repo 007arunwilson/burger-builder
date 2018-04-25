@@ -5,6 +5,7 @@ import classes from './ContactData.css';
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import axiosInstance from '../../../axios-orders';
+import WithAxiosErrorHandler from '../../../hoc/WithAxiosErrorHandler/WithAxiosErrorHandler';
 
 class ContactData extends Component {
 
@@ -36,7 +37,7 @@ class ContactData extends Component {
         const order = {
             ingredients:this.props.ingredients,
             price:this.props.totalPrice,
-            customner:{
+            customer:{
                 name:'Arun Wilson',
                 addres:{
                     street:'lorem Streets',
@@ -88,4 +89,4 @@ class ContactData extends Component {
     
     }
     
-export default ContactData;
+export default WithAxiosErrorHandler(ContactData);
