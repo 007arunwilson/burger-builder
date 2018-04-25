@@ -41,8 +41,11 @@ class Orders extends Component {
         if (!this.state.loading) {
 
             orders_jsx = (<Fragment>
-                <Order />
-                <Order />
+                {this.state.orders.map(order=><Order
+                 key={order.id} 
+                 ingredients={order.ingredients}
+                 price={order.price}
+                 />)}
                 </Fragment>);
 
         }

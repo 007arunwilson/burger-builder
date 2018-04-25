@@ -109,7 +109,7 @@ class BurgerBuilder extends Component {
 
         newState.ingredients[ingredientType] = newIngredientValue;
         this.setState(newState);
-        this.updatePurchasableValue(newState.ingredients);
+        this.updatePurchasePrice(newState.ingredients);
 
     };
 

@@ -89,4 +89,4 @@ class ContactData extends Component {
     
     }
     
-export default WithAxiosErrorHandler(ContactData);
+export default WithAxiosErrorHandler(ContactData,axiosInstance);
