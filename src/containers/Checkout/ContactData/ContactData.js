@@ -1,4 +1,4 @@
-import React, { Component,Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import classes from './ContactData.css';
 
@@ -12,13 +12,63 @@ import Input from '../../../components/UI/Input/Input';
 class ContactData extends Component {
 
     state = {
-        name: '',
-        email: '',
-        address: {
-            street: '',
-            postalCode: ''
-        },
-        loading:false,
+        orderForm: {
+            name: {
+                elementType:'input',
+                value:'',
+                elementConfig:{
+                    type:'text',
+                    placeholder:'Your Name',
+                }
+            },
+            street: {
+                elementType:'input',
+                value:'',
+                elementConfig:{
+                    type:'text',
+                    placeholder:'Street',
+                }
+            },
+            zipCode: {
+                elementType:'input',
+                value:'',
+                elementConfig:{
+                    type:'text',
+                    placeholder:'ZIP Code',
+                }
+            },
+            name: {
+                elementType:'input',
+                value:'',
+                elementConfig:{
+                    type:'text',
+                    placeholder:'Country',
+                }
+            },
+            name: {
+                elementType:'input',
+                value:'',
+                elementConfig:{
+                    type:'text',
+                    placeholder:'Your Mail',
+                }
+            },
+            delieveryMethod: {
+                elementType:'select',
+                value:'',
+                elementConfig:{
+                    option:[{
+                        value:'fastest',
+                        displayValue:'Fastest',
+                    },
+                    {
+                        value:'cheapest',
+                        displayValue:'Cheapest',
+                    }]
+                }
+            }
+        }
+        loading: false,
     }
 
     componentDidMount() {
@@ -27,37 +77,37 @@ class ContactData extends Component {
 
 
     }
-    orderHandler(event){
+    orderHandler(event) {
 
         event.preventDefault();
 
-        this.setState({loading:true})
+        this.setState({ loading: true })
 
-        console.log('Purchase Continue : ',true);
-        this.setState({loadiing:true});
+        console.log('Purchase Continue : ', true);
+        this.setState({ loadiing: true });
 
         const order = {
-            ingredients:this.props.ingredients,
-            price:this.props.totalPrice,
-            customer:{
-                name:'Arun Wilson',
-                addres:{
-                    street:'lorem Streets',
-                    zipcode:'58654',
-                    country:'Canada',
+            ingredients: this.props.ingredients,
+            price: this.props.totalPrice,
+            customer: {
+                name: 'Arun Wilson',
+                addres: {
+                    street: 'lorem Streets',
+                    zipcode: '58654',
+                    country: 'Canada',
                 },
-                email:'cyberinfoscripter@gmail.com'
+                email: 'cyberinfoscripter@gmail.com'
             },
-            deliveryMethod:'fastest'
+            deliveryMethod: 'fastest'
         }
-        axiosInstance.post('/orders.json',order)
-        .then(response=>{
-            this.setState({loading:false});
-            this.props.history.replace('/');
-        })
-        .catch(error=>{
-            this.setState({loading:false});
-        })
+        axiosInstance.post('/orders.json', order)
+            .then(response => {
+                this.setState({ loading: false });
+                this.props.history.replace('/');
+            })
+            .catch(error => {
+                this.setState({ loading: false });
+            })
 
     }
 
@@ -65,7 +115,7 @@ class ContactData extends Component {
 
         // let contact_form_jsx = this.state.loading ? <Spinner/>:;
 
-        let contact_form_jsx  = (<Fragment>
+        let contact_form_jsx = (<Fragment>
             <h4>Enter your Contact data :</h4>
             <form>
                 <Input inputtype="input" type="text" name="name" placeholder="Name" />
@@ -74,21 +124,20 @@ class ContactData extends Component {
                 <Input inputtype="input" type="text" name="name" placeholder="Postal Code" />
                 <Button clicked={this.orderHandler.bind(this)} >Order</Button>
             </form>
-            </Fragment>);
+        </Fragment>);
 
-        if(this.state.loading)
-        {
-            contact_form_jsx = <Spinner/>
+        if (this.state.loading) {
+            contact_form_jsx = <Spinner />
         }
 
         return (
             <div className={classes.ContactData} >
                 {contact_form_jsx}
             </div>
-            );
-    
-        }
-    
+        );
+
     }
-    
-export default WithAxiosErrorHandler(ContactData,axiosInstance);
+
+}
+
+export default WithAxiosErrorHandler(ContactData, axiosInstance);
