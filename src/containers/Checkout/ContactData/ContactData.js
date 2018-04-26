@@ -98,22 +98,16 @@ class ContactData extends Component {
 
         this.setState({ loading: true })
 
-        console.log('Purchase Continue : ', true);
-        this.setState({ loadiing: true });
+        const orderData = {};
+        for(let formElementIdenditifier in this.state.orderForm)
+        {
+            orderData[formElementIdenditifier] = this.state.orderForm[formElementIdenditifier]['value'];
+        }
 
         const order = {
             ingredients: this.props.ingredients,
             price: this.props.totalPrice,
-            customer: {
-                name: 'Arun Wilson',
-                addres: {
-                    street: 'lorem Streets',
-                    zipcode: '58654',
-                    country: 'Canada',
-                },
-                email: 'cyberinfoscripter@gmail.com'
-            },
-            deliveryMethod: 'fastest'
+            orderData:orderData
         }
         axiosInstance.post('/orders.json', order)
             .then(response => {
@@ -152,9 +146,9 @@ class ContactData extends Component {
 
         let contact_form_jsx = (<Fragment>
             <h4>Enter your Contact data :</h4>
-            <form>
+            <form onSubmit={this.orderHandler.bind(this)} >
                 {input_jsx}
-                <Button clicked={this.orderHandler.bind(this)} >Order</Button>
+                <Button >Order</Button>
             </form>
         </Fragment>);
 
