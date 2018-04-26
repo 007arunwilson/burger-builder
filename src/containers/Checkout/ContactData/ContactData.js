@@ -6,6 +6,8 @@ import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import axiosInstance from '../../../axios-orders';
 import WithAxiosErrorHandler from '../../../hoc/WithAxiosErrorHandler/WithAxiosErrorHandler';
+import Input from '../../../components/UI/Input/Input';
+
 
 class ContactData extends Component {
 
@@ -66,10 +68,10 @@ class ContactData extends Component {
         let contact_form_jsx  = (<Fragment>
             <h4>Enter your Contact data :</h4>
             <form>
-                <input type="text" name="name" placeholder="Name" />
-                <input type="email" name="email" placeholder="Email" />
-                <input type="text" name="name" placeholder="Street" />
-                <input type="text" name="name" placeholder="Postal Code" />
+                <Input inputtype="input" type="text" name="name" placeholder="Name" />
+                <Input inputtype="input" type="email" name="email" placeholder="Email" />
+                <Input inputtype="input" type="text" name="name" placeholder="Street" />
+                <Input inputtype="input" type="text" name="name" placeholder="Postal Code" />
                 <Button clicked={this.orderHandler.bind(this)} >Order</Button>
             </form>
             </Fragment>);
