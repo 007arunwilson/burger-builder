@@ -55,7 +55,7 @@ class ContactData extends Component {
             },
             delieveryMethod: {
                 elementType:'select',
-                value:'',
+                value:'cheapest',
                 elementConfig:{
                     options:[{
                         value:'fastest',
