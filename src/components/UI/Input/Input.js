@@ -13,6 +13,7 @@ const input = (props) => {
 
             input_jsx = (<input
                  value={props.value}
+                 onChange={props.onChangeHandler}
                  className={classes.InputElement} 
                  {...props.elementConfig} />);
 
@@ -21,6 +22,7 @@ const input = (props) => {
 
             input_jsx = (<textarea
                  value={props.value}
+                 onChange={props.onChangeHandler}
                  className={classes.InputElement} 
                  {...props.elementConfig} />);
 
@@ -29,12 +31,13 @@ const input = (props) => {
 
             input_jsx = (<select
                  value={props.value}
+                 onChange={props.onChangeHandler}
                  className={classes.InputElement} 
                  {...props.elementConfig.config} >
                  {props.elementConfig.options.map(option=>{
 
                     return (
-                        <option value={option.value} >{option.displayValue}</option>
+                        <option key={option.value} value={option.value} >{option.displayValue}</option>
                     )
                 
                  })}
@@ -45,6 +48,7 @@ const input = (props) => {
 
             input_jsx = (<input
                  value={props.value}
+                 onChange={props.onChangeHandler}
                  className={classes.InputElement} 
                  {...props.elementConfig} />);
 
