@@ -22,7 +22,23 @@ const input = (props) => {
             input_jsx = (<textarea
                  value={props.value}
                  className={classes.InputElement} 
-                 {...props} />);
+                 {...props.elementConfig} />);
+
+        break;
+        case('select'):
+
+            input_jsx = (<select
+                 value={props.value}
+                 className={classes.InputElement} 
+                 {...props.elementConfig.config} >
+                 {props.elementConfig.options.map(option=>{
+
+                    return (
+                        <option value={option.value} >{option.displayValue}</option>
+                    )
+                
+                 })}
+                 </select>);
 
         break;
         default:
@@ -32,7 +48,7 @@ const input = (props) => {
                  className={classes.InputElement} 
                  {...props.elementConfig} />);
 
-
+        break;
     }
 
     return (<div className={classes.Input} >

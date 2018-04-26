@@ -37,7 +37,7 @@ class ContactData extends Component {
                     placeholder:'ZIP Code',
                 }
             },
-            name: {
+            country: {
                 elementType:'input',
                 value:'',
                 elementConfig:{
@@ -45,7 +45,7 @@ class ContactData extends Component {
                     placeholder:'Country',
                 }
             },
-            name: {
+            email: {
                 elementType:'input',
                 value:'',
                 elementConfig:{
@@ -57,17 +57,18 @@ class ContactData extends Component {
                 elementType:'select',
                 value:'',
                 elementConfig:{
-                    option:[{
+                    options:[{
                         value:'fastest',
                         displayValue:'Fastest',
                     },
                     {
                         value:'cheapest',
                         displayValue:'Cheapest',
-                    }]
+                    }],
+                    config:{}
                 }
             }
-        }
+        },
         loading: false,
     }
 
@@ -114,14 +115,25 @@ class ContactData extends Component {
     render() {
 
         // let contact_form_jsx = this.state.loading ? <Spinner/>:;
+        const formElemetsArray = [];
+
+        for (let key_ in this.state.orderForm)
+        {
+            formElemetsArray.push({
+                id:key_,
+                config:this.state.orderForm[key_],
+            });
+        }
+
+
+        let input_jsx = formElemetsArray.map(formElement=>{
+            return (<Input key={formElement.id} elementType={formElement.config.elementType} value={formElement.config.value} elementConfig={formElement.config.elementConfig}  />);
+        });
 
         let contact_form_jsx = (<Fragment>
             <h4>Enter your Contact data :</h4>
             <form>
-                <Input inputtype="input" type="text" name="name" placeholder="Name" />
-                <Input inputtype="input" type="email" name="email" placeholder="Email" />
-                <Input inputtype="input" type="text" name="name" placeholder="Street" />
-                <Input inputtype="input" type="text" name="name" placeholder="Postal Code" />
+                {input_jsx}
                 <Button clicked={this.orderHandler.bind(this)} >Order</Button>
             </form>
         </Fragment>);
