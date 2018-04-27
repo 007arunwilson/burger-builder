@@ -6,6 +6,10 @@ const input = (props) => {
 
     let input_jsx;
 
+    const InputElementClasses = [classes.InputElement];
+
+    if(props.IsInValid && props.ShouldValidate) InputElementClasses.push(classes.Invalid);
+
     switch(props.elementType)
     {
 
@@ -14,7 +18,7 @@ const input = (props) => {
             input_jsx = (<input
                  value={props.value}
                  onChange={props.onChangeHandler}
-                 className={classes.InputElement} 
+                 className={InputElementClasses.join(' ')} 
                  {...props.elementConfig} />);
 
         break;
@@ -23,7 +27,7 @@ const input = (props) => {
             input_jsx = (<textarea
                  value={props.value}
                  onChange={props.onChangeHandler}
-                 className={classes.InputElement} 
+                 className={InputElementClasses.join(' ')} 
                  {...props.elementConfig} />);
 
         break;
@@ -32,7 +36,7 @@ const input = (props) => {
             input_jsx = (<select
                  value={props.value}
                  onChange={props.onChangeHandler}
-                 className={classes.InputElement} 
+                 className={InputElementClasses.join(' ')} 
                  {...props.elementConfig.config} >
                  {props.elementConfig.options.map(option=>{
 
@@ -49,7 +53,7 @@ const input = (props) => {
             input_jsx = (<input
                  value={props.value}
                  onChange={props.onChangeHandler}
-                 className={classes.InputElement} 
+                 className={InputElementClasses.join(' ')}  
                  {...props.elementConfig} />);
 
         break;

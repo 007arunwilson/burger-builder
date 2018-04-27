@@ -193,6 +193,8 @@ class ContactData extends Component {
                 elementType={formElement.config.elementType} 
                 value={formElement.config.value} 
                 elementConfig={formElement.config.elementConfig}
+                IsInValid={!formElement.config.valid}
+                ShouldValidate={formElement.config.validation}
                 onChangeHandler={(event)=>this.inputChangeHandler(event,formElement.id)}
                 />);
         });
