@@ -103,6 +103,7 @@ class ContactData extends Component {
                     }],
                     config:{}
                 },
+                validation:{}
             },
         },
         formIsValid:false,
@@ -119,6 +120,8 @@ class ContactData extends Component {
     {
 
         let isValid = true;
+
+        if(!rules) return isValid;
 
         if(rules.required){
             isValid = (value.trim() !== '' && isValid);
@@ -151,7 +154,7 @@ class ContactData extends Component {
         updatedOrderForm[targetElementId] = updatedFormElement;
 
         let formIsValid = true;
-        
+
         for(let formIndentifier in updatedOrderForm)
         {
 
