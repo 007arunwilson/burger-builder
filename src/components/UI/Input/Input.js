@@ -59,9 +59,17 @@ const input = (props) => {
         break;
     }
 
+    let validation_error = null;
+
+    if(props.IsInValid && props.ShouldValidate && props.touched)
+    {
+        validation_error = <span className={classes.ErrorText} >Please add a valid {props.elementConfig.type?props.elementConfig.type:'text'}</span>;
+    }
+
     return (<div className={classes.Input} >
         <label className={classes.Label} >{props.label}</label>
         {input_jsx}
+        {validation_error}
     </div>);
 
 

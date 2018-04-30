@@ -38,3 +38,7 @@
     border:1px solid red;
     background-color: #fff4f2;
 }
+
+.ErrorText {
+    color:red;
+}
