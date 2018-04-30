@@ -22,10 +22,11 @@ class ContactData extends Component {
                 },
                 validation:{
                     required:true,
-                    minLength:5,
-                    maxLength:5
+                    minLength:2,
+                    maxLength:16
                 },
-                valid:false
+                valid:false,
+                touched:false
             },
             street: {
                 elementType:'input',
@@ -36,10 +37,11 @@ class ContactData extends Component {
                 },
                 validation:{
                     required:true,
-                    minLength:5,
-                    maxLength:5
+                    minLength:2,
+                    maxLength:16
                 },
-                valid:false
+                valid:false,
+                touched:false
             },
             zipCode: {
                 elementType:'input',
@@ -53,7 +55,8 @@ class ContactData extends Component {
                     minLength:5,
                     maxLength:5
                 },
-                valid:false
+                valid:false,
+                touched:false
             },
             country: {
                 elementType:'input',
@@ -64,10 +67,11 @@ class ContactData extends Component {
                 },
                 validation:{
                     required:true,
-                    minLength:5,
-                    maxLength:5
+                    minLength:3,
+                    maxLength:32
                 },
-                valid:false
+                valid:false,
+                touched:false
             },
             email: {
                 elementType:'input',
@@ -78,10 +82,11 @@ class ContactData extends Component {
                 },
                 validation:{
                     required:true,
-                    minLength:5,
-                    maxLength:5
+                    minLength:4,
+                    maxLength:46
                 },
-                valid:false
+                valid:false,
+                touched:false
             },
             delieveryMethod: {
                 elementType:'select',
@@ -114,17 +119,17 @@ class ContactData extends Component {
         let isValid = true;
 
         if(rules.required){
-            isValid = value.trim() !== '' && isValid;
+            isValid = (value.trim() !== '' && isValid);
         }
 
         if(rules.minLength)
         {
-            isValid = value.length <= rules.minLength && isValid;
+            isValid = (value.length >= rules.minLength && isValid);
         }
 
         if(rules.maxLength)
         {
-            isValid = value.length >= rules.maxLength && isValid;
+            isValid = (value.length <= rules.maxLength && isValid);
         }
 
         return isValid;
@@ -140,8 +145,8 @@ class ContactData extends Component {
         }
         updatedFormElement.value = event.target.value;
         updatedFormElement.valid = this.checkValidity(updatedFormElement.value,updatedFormElement.validation);
+        updatedFormElement.touched = true;
         updatedOrderForm[targetElementId] = updatedFormElement;
-        console.log(updatedFormElement);
         this.setState({orderForm:updatedOrderForm});
 
     }
@@ -195,6 +200,7 @@ class ContactData extends Component {
                 elementConfig={formElement.config.elementConfig}
                 IsInValid={!formElement.config.valid}
                 ShouldValidate={formElement.config.validation}
+                touched={formElement.config.touched}
                 onChangeHandler={(event)=>this.inputChangeHandler(event,formElement.id)}
                 />);
         });
