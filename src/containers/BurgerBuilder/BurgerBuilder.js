@@ -13,8 +13,6 @@ import WithAxiosErrorHandler from '../../hoc/WithAxiosErrorHandler/WithAxiosErro
 class BurgerBuilder extends Component {
 
     state = {
-        totalPrice: 0,
-        purchasable: false,
         purchaseMode: false,
         error: null
     }
@@ -75,26 +73,8 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        console.log(this.props);
 
-        let burgerIngredients = this.props.ingredients;
-
-        let queryParamsArr = new Array();
-
-        queryParamsArr.push('totalPrice=' + this.props.totalPrice);
-
-        for (let i in burgerIngredients) {
-
-            queryParamsArr.push(encodeURIComponent(i) + '=' + encodeURIComponent(burgerIngredients[i]));
-
-        }
-
-        const queryString = queryParamsArr.join('&');
-
-        this.props.history.push({
-            pathname: '/checkout',
-            search: '?' + queryString,
-        });
+        this.props.history.push('/checkout');
 
     }
 

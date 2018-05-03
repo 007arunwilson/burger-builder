@@ -1,4 +1,5 @@
 import React,{ Component, Fragment } from 'react';
+import {connect} from 'react-redux';
 
 import classes from './ContactData.css';
 
@@ -241,4 +242,11 @@ class ContactData extends Component {
 
 }
 
-export default WithAxiosErrorHandler(ContactData, axiosInstance);
+const mapStateToProps = reduxState =>{
+    return {
+        ingredients:reduxState.ingredients,
+        totalPrice:reduxState.totalPrice,
+    }
+}
+
+export default connect(mapStateToProps)(WithAxiosErrorHandler(ContactData, axiosInstance));
