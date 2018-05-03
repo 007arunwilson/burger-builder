@@ -62,57 +62,9 @@ class BurgerBuilder extends Component {
                 return prev + cur;
             }, 0);
 
-        this.setState({ purchasable: purchasableValue > 0 })
+        return purchasableValue > 0;
 
     }
-
-    updatePurchasePrice(currentIngredients) {
-
-        let current_price = 0;
-
-        let ingredientKeys = Object.keys(currentIngredients);
-
-        ingredientKeys.map(ingkey => {
-            current_price += (currentIngredients[ingkey] * this.IngredientPrice[ingkey]);
-        });
-
-        current_price = parseFloat(current_price).toFixed(2);
-
-        this.updatePurchasableValue(currentIngredients);
-        this.setState({ totalPrice: current_price });
-
-
-    }
-
-    addIngredientHandler = (ingredientType) => {
-
-        console.log('[addIngredientHandler] :', ingredientType);
-
-        let newState = { ...this.state };
-
-        console.log(' Satte Ingredients : ', newState.ingredients);
-        let oldIngredientValue = newState.ingredients[ingredientType];
-        let newIngredientValue = oldIngredientValue + 1;
-        newState.ingredients[ingredientType] = newIngredientValue;
-
-        this.setState(newState);
-        this.updatePurchasePrice(newState.ingredients);
-    };
-
-    removeIngredientHandler = (ingredientType) => {
-
-        let newState = { ...this.state };
-        let oldIngredientValue = newState.ingredients[ingredientType];
-
-        if (oldIngredientValue <= 0) return;
-
-        let newIngredientValue = oldIngredientValue - 1;
-
-        newState.ingredients[ingredientType] = newIngredientValue;
-        this.setState(newState);
-        this.updatePurchasePrice(newState.ingredients);
-
-    };
 
     purchaseModeHandler = () => {
         this.setState({ purchaseMode: true });
@@ -181,7 +133,7 @@ class BurgerBuilder extends Component {
                     removeIngredientFn={this.props.removeIngredientHandler}
                     disabledBtnInfo={disabledBtnInfo}
                     totalPrice={this.props.totalPrice}
-                    purchasable={this.state.purchasable}
+                    purchasable={this.updatePurchasableValue(this.props.ingredients)}
                     purchaseModeHandler={this.purchaseModeHandler}
                 />
             </Fragment>;

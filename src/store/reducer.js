@@ -26,7 +26,7 @@ const reducer = (state = initialState, action) => {
             updated_state = {
                 ...state,
                 ingredients:{...state.ingredients},
-                totalPrice:state.totalPrice+state.ingredientsPrice[action.payload.ingredientType],
+                totalPrice:(parseFloat(Number(state.totalPrice)+Number(state.ingredientsPrice[action.payload.ingredientType]))).toFixed(2),
             };
 
             console.log('[ADD_INGREDIENT]',action, updated_state);
@@ -40,7 +40,7 @@ const reducer = (state = initialState, action) => {
             updated_state = {
                 ...state,
                 ingredients:{...state.ingredients},
-                totalPrice:state.totalPrice-state.ingredientsPrice[action.payload.ingredientType],
+                totalPrice:(parseFloat(Number(state.totalPrice)-Number(state.ingredientsPrice[action.payload.ingredientType]))).toFixed(2),
             };
 
             updated_state.ingredients[action.payload.ingredientType] = updated_state.ingredients[action.payload.ingredientType] - 1;
