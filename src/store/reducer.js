@@ -1,11 +1,16 @@
 import * as actions from './actions';
 
-const intitialState = {
-    ingredients: null,
-    totalPrice: 0,
+const initialState = {
+    ingredients:{
+        salad:0,
+        bacon:0,
+        cheese:0,
+        meat:0,
+    },
+    totalPrice:0,
 };
 
-const reducer = (state = intitialState, action) => {
+const reducer = (state = initialState, action) => {
 
     let updated_state = null;
 
@@ -14,23 +19,25 @@ const reducer = (state = intitialState, action) => {
 
             updated_state = {
                 ...state,
-                ...state.ingredients
+                ingredients:{...state.ingredients}
             };
 
-            updated_state.ingredients[action.payload.ingredient] = updated_state.ingredients[action.payload.ingredient] + 1;
+            console.log('[ADD_INGREDIENT]',action, updated_state);
 
-            break;
+
+            updated_state.ingredients[action.payload.ingredientType] = updated_state.ingredients[action.payload.ingredientType] + 1;
+
+            return updated_state;
         case actions.REMOVE_INGREDIENT:
 
             updated_state = {
                 ...state,
-                ...state.ingredients
+                ingredients:{...state.ingredients}
             };
 
-            updated_state.ingredients[action.payload.ingredient] = updated_state.ingredients[action.payload.ingredient] - 1;
+            updated_state.ingredients[action.payload.ingredientType] = updated_state.ingredients[action.payload.ingredientType] - 1;
 
-            break;
-
+            return updated_state;
         default:
             return state;
 
