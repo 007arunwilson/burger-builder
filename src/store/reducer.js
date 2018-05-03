@@ -8,6 +8,12 @@ const initialState = {
         meat:0,
     },
     totalPrice:0,
+    ingredientsPrice:{
+        salad:.5,
+        bacon:.7,
+        cheese:.8,
+        meat:1.8,
+    }
 };
 
 const reducer = (state = initialState, action) => {
@@ -19,7 +25,8 @@ const reducer = (state = initialState, action) => {
 
             updated_state = {
                 ...state,
-                ingredients:{...state.ingredients}
+                ingredients:{...state.ingredients},
+                totalPrice:state.totalPrice+state.ingredientsPrice[action.payload.ingredientType],
             };
 
             console.log('[ADD_INGREDIENT]',action, updated_state);
@@ -32,7 +39,8 @@ const reducer = (state = initialState, action) => {
 
             updated_state = {
                 ...state,
-                ingredients:{...state.ingredients}
+                ingredients:{...state.ingredients},
+                totalPrice:state.totalPrice-state.ingredientsPrice[action.payload.ingredientType],
             };
 
             updated_state.ingredients[action.payload.ingredientType] = updated_state.ingredients[action.payload.ingredientType] - 1;

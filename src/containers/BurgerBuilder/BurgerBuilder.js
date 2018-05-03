@@ -129,7 +129,7 @@ class BurgerBuilder extends Component {
 
         let queryParamsArr = new Array();
 
-        queryParamsArr.push('totalPrice=' + this.state.totalPrice);
+        queryParamsArr.push('totalPrice=' + this.props.totalPrice);
 
         for (let i in burgerIngredients) {
 
@@ -162,7 +162,7 @@ class BurgerBuilder extends Component {
                 purchaseCancelHandler={this.purchaseModeOffHandler}
                 purchaseContinueHandler={this.purchaseContinueHandler}
                 ingredients={this.props.ingredients}
-                totalPrice={this.state.totalPrice}
+                totalPrice={this.props.totalPrice}
             />;
 
             if (this.state.loadiing) {
@@ -180,7 +180,7 @@ class BurgerBuilder extends Component {
                     addIngredientFn={this.props.addIngredientHandler}
                     removeIngredientFn={this.props.removeIngredientHandler}
                     disabledBtnInfo={disabledBtnInfo}
-                    totalPrice={this.state.totalPrice}
+                    totalPrice={this.props.totalPrice}
                     purchasable={this.state.purchasable}
                     purchaseModeHandler={this.purchaseModeHandler}
                 />
