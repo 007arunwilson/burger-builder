@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../store/actions';
+import * as burgerBuilderActions from '../../store/actions/index';
 import Aux from '../../hoc/Aux/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -146,20 +146,10 @@ const mapStateToProps = (reduxState) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         addIngredientHandler: (ingredientType) => {
-            return dispatch({
-                type: actions.ADD_INGREDIENT,
-                payload: {
-                    ingredientType: ingredientType
-                }
-            });
+            return dispatch(burgerBuilderActions.addBurgerIngredient({ingredientType: ingredientType}));
         },
         removeIngredientHandler: (ingredientType) => {
-            return dispatch({
-                type: actions.REMOVE_INGREDIENT,
-                payload: {
-                    ingredientType: ingredientType
-                }
-            });
+            return dispatch(burgerBuilderActions.removeBurgerIngredient({ingredientType: ingredientType}));
         },
     }
 }
