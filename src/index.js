@@ -5,10 +5,28 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import {BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
-import {createStore} from 'redux';
+import {createStore,applyMiddleware,compose} from 'redux';
 import reducer from './store/reducers/burgerBuilder';
 
-const store = createStore(reducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const middelwareLogger = (store) =>{
+
+    return (next) => {
+
+        return (action)=> {
+
+            const result = next(action);
+
+            console.log('[middelwareLogger]',store.getState());
+
+            return result;
+
+        }
+
+    }
+
+}
+
+const store = createStore(reducer,applyMiddleware(middelwareLogger));
 
 const app = (
     <Provider store={store}>
