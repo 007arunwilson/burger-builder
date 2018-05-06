@@ -25,8 +25,8 @@ const middelwareLogger = (store) =>{
     }
 
 }
-
-const store = createStore(reducer,applyMiddleware(middelwareLogger));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducer,composeEnhancers(applyMiddleware(middelwareLogger)));
 
 const app = (
     <Provider store={store}>
