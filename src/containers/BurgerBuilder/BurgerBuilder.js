@@ -6,50 +6,20 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
-import axiosInstance from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import axiosInstance from '../../axios-orders';
 import WithAxiosErrorHandler from '../../hoc/WithAxiosErrorHandler/WithAxiosErrorHandler';
 
 class BurgerBuilder extends Component {
 
     state = {
         purchaseMode: false,
-        error: null
     }
 
     IngredientPrice = null;
 
     componentDidMount() {
-
-        console.log('[BurgerBuilder]', this.props)
-
-        // axiosInstance.get('https://cis-burger-builder-react.firebaseio.com/ingredients_priced.json')
-        // .then(response=>{
-
-        //     const ingredients_priced_response = response.data;
-
-        //     const ingredients_keys = Object.keys(ingredients_priced_response);
-        //     let ingredients = {};
-        //     let ingredients_price = {};
-
-        //     ingredients_keys.map(ingkey=>{
-
-        //         ingredients[ingkey] = ingredients_priced_response[ingkey]['initial_value'];
-        //         ingredients_price[ingkey] = ingredients_priced_response[ingkey]['price'];
-
-        //     });
-
-        //     this.IngredientPrice = ingredients_price
-        //     this.setState({ingredients:ingredients});
-        //     this.updatePurchasePrice(ingredients);
-
-        // })
-        // .catch(error=>{
-
-        //     this.setState({error:error});
-
-        // })
-
+        console.log('[BurgerBuilder]', this.props);
     }
 
     updatePurchasableValue = (ingredients) => {
