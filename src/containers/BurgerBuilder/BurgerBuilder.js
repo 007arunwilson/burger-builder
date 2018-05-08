@@ -19,7 +19,8 @@ class BurgerBuilder extends Component {
     IngredientPrice = null;
 
     componentDidMount() {
-        console.log('[BurgerBuilder]', this.props);
+        console.log('[BurgerBuilder]  compoenent did mount');
+        this.props.onInitIngredients();
     }
 
     updatePurchasableValue = (ingredients) => {
@@ -92,7 +93,7 @@ class BurgerBuilder extends Component {
 
         return (
             <Aux>
-                {this.state.error ? (
+                {this.props.error ? (
                     <p style={{ textAlign: 'Center', color: 'red' }}>
                         Something went wrong!
                 <br />
@@ -109,7 +110,9 @@ class BurgerBuilder extends Component {
 const mapStateToProps = (reduxState) => {
     return {
         ingredients: reduxState.ingredients,
-        totalPrice: reduxState.totalPrice
+        totalPrice: reduxState.totalPrice,
+        ingredientsPrice:reduxState.ingredientsPrice,
+        error:reduxState.error
     }
 }
 
@@ -121,6 +124,9 @@ const mapDispatchToProps = (dispatch) => {
         removeIngredientHandler: (ingredientType) => {
             return dispatch(burgerBuilderActions.removeBurgerIngredient({ingredientType: ingredientType}));
         },
+        onInitIngredients:()=>{
+            return dispatch(burgerBuilderActions.initIngredients());
+        }
     }
 }
 
