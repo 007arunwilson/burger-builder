@@ -24,22 +24,29 @@ export const purchaseBurgerFail = (payload) => {
 
 }
 
-export const purchaseBurgerStart = (payload) => {
+export const purchaseBurgerStart = () => {
+
+    return {
+        type: actionTypes.PURCHASE_BURGER_START,
+    }
+
+}
+
+export const sentBurgerOrder = (payload) => {
 
     return (dispatch,getState)=>{
 
-        console.log('[purchaseBurgerStart] action response',getState);
+        dispatch(purchaseBurgerStart());
 
         let order = {
             ingredients: getState().ingredients,
             price: getState().totalPrice,
             orderData:payload.orderData
         }
+        
 
         axiosInstance.post('/orders.json', order)
             .then(response => {
-
-                console.log('[purchaseBurgerStart] action response : ',response)
 
                 //Dummy payload
                 let payload = {
@@ -51,7 +58,11 @@ export const purchaseBurgerStart = (payload) => {
                 
             })
             .catch(error => {
-                this.setState({ loading: false });
+
+                return dispatch(purchaseBurgerFail({
+                    payload:error
+                }));
+
             })
 
     }

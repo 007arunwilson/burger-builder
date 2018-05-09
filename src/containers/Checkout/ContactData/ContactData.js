@@ -224,7 +224,7 @@ class ContactData extends Component {
             </form>
         </Fragment>);
 
-        if (this.state.loading) {
+        if (this.props.loading) {
             contact_form_jsx = <Spinner />
         }
 
@@ -242,6 +242,7 @@ const mapStateToProps = reduxState =>{
     return {
         sendOrder:reduxState.ingredients,
         totalPrice:reduxState.totalPrice,
+        loading:reduxState.totalPrice,
     }
 }
 
@@ -249,7 +250,7 @@ const mapStateToProps = reduxState =>{
 const mapDispatchToProps = dispatch =>{
     return {
         sentBurgerOrder:(payload)=>{
-            return dispatch(orderActions.purchaseBurgerStart(payload));
+            return dispatch(orderActions.sentBurgerOrder(payload));
         }
     }
 }

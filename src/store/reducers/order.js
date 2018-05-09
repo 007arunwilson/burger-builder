@@ -12,19 +12,26 @@ const reducer = (state = initial_state, action) => {
 
             const newOrderData = {
                 ...action.payload.orderData,
-                id:action.payload.orderId
+                id: action.payload.orderId
             }
 
             return {
                 ...state,
-                loading:false,
-                orders:state.orders.concat(newOrderData)
+                loading: false,
+                orders: state.orders.concat(newOrderData)
             };
         case actionTypes.PURCHASE_BURGER_FAIL:
             return {
                 ...state,
-                loading:false
+                loading: false
             };
+        case actionTypes.PURCHASE_BURGER_START:
+            return {
+                ...state,
+                loading: true
+            };
+        default:
+            return { ...state };
 
     }
 
