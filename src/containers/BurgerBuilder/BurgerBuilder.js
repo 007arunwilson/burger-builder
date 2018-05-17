@@ -109,10 +109,10 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = (reduxState) => {
     return {
-        ingredients: reduxState.ingredients,
-        totalPrice: reduxState.totalPrice,
-        ingredientsPrice:reduxState.ingredientsPrice,
-        error:reduxState.error
+        ingredients: reduxState.burgerBuilder.ingredients,
+        totalPrice: reduxState.burgerBuilder.totalPrice,
+        ingredientsPrice:reduxState.burgerBuilder.ingredientsPrice,
+        error:reduxState.burgerBuilder.error
     }
 }
 

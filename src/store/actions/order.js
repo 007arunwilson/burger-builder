@@ -39,8 +39,8 @@ export const sentBurgerOrder = (payload) => {
         dispatch(purchaseBurgerStart());
 
         let order = {
-            ingredients: getState().ingredients,
-            price: getState().totalPrice,
+            ingredients: payload.ingredients,
+            price: payload.totalPrice,
             orderData:payload.orderData
         }
         

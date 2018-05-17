@@ -180,7 +180,7 @@ class ContactData extends Component {
 
         let payload = {
             ingredients: this.props.ingredients,
-            price: this.props.totalPrice,
+            totalPrice: this.props.totalPrice,
             orderData:orderData
         }
 
@@ -240,9 +240,9 @@ class ContactData extends Component {
 
 const mapStateToProps = reduxState =>{
     return {
-        sendOrder:reduxState.ingredients,
-        totalPrice:reduxState.totalPrice,
-        loading:reduxState.totalPrice,
+        ingredients:reduxState.burgerBuilder.ingredients,
+        totalPrice:reduxState.burgerBuilder.totalPrice,
+        loading:reduxState.order.loading,
     }
 }
 

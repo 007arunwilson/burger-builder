@@ -39,8 +39,8 @@ class Checkout extends Component {
 
 const mapStateToProps = (reduxState) => {
     return {
-        ingredients: reduxState.ingredients,
-        totalPrice: reduxState.totalPrice
+        ingredients: reduxState.burgerBuilder.ingredients,
+        totalPrice: reduxState.burgerBuilder.totalPrice
     }
 }
 
