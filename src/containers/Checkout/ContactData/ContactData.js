@@ -1,5 +1,6 @@
 import React,{ Component, Fragment } from 'react';
 import {connect} from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import classes from './ContactData.css';
 
@@ -190,6 +191,11 @@ class ContactData extends Component {
     }
 
     render() {
+
+        if(!this.props.ingredients)
+        {
+            return  <Redirect to="/" />
+        }
 
         // let contact_form_jsx = this.state.loading ? <Spinner/>:;
         const formElemetsArray = [];
