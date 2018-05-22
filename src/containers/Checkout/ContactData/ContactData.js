@@ -197,6 +197,11 @@ class ContactData extends Component {
             return  <Redirect to="/" />
         }
 
+        if(!this.props.purchasing)
+        {
+            return  <Redirect to="/" />
+        }
+
         // let contact_form_jsx = this.state.loading ? <Spinner/>:;
         const formElemetsArray = [];
 
@@ -249,6 +254,7 @@ const mapStateToProps = reduxState =>{
         ingredients:reduxState.burgerBuilder.ingredients,
         totalPrice:reduxState.burgerBuilder.totalPrice,
         loading:reduxState.order.loading,
+        purchasing:reduxState.order.purchasing,
     }
 }
 

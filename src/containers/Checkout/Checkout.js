@@ -3,10 +3,14 @@ import { Route } from "react-router-dom";
 import { connect } from "react-redux";
 import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSummary";
 import ContactData from "../Checkout/ContactData/ContactData";
+import * as orderActions from '../../store/actions/index';
 
 class Checkout extends Component {
   checkoutOutContinue() {
+    
+    this.props.purchaseBurgerInit();
     this.props.history.push("/checkout/contact-data");
+
     //this.props.histoy.back();
     //this.props.histoy.push('/checkout/contact-data');
   }
@@ -42,4 +46,13 @@ const mapStateToProps = reduxState => {
   };
 };
 
-export default connect(mapStateToProps)(Checkout);
+const mapDispatchToProps = dispatch => {
+    return {
+        purchaseBurgerInit:()=>{
+            return dispatch(orderActions.purchaseBurgerInit());
+        }
+    }
+
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Checkout);

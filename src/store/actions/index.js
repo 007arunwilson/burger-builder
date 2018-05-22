@@ -5,5 +5,6 @@ export {
 } from './burderBuilder';
 
 export { 
-    sentBurgerOrder
+    sentBurgerOrder,
+    purchaseBurgerInit
 } from './order';

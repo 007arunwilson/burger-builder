@@ -32,6 +32,14 @@ export const purchaseBurgerStart = () => {
 
 }
 
+export const purchaseBurgerInit = () => {
+
+    return {
+        type: actionTypes.PURCHASE_BURGER_INIT,
+    }
+
+}
+
 export const sentBurgerOrder = (payload) => {
 
     return (dispatch,getState)=>{
