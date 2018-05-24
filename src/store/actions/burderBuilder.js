@@ -49,6 +49,15 @@ export const fetchIngredientsFailed = () => {
 
 }
 
+export const resetBurgerPrice = (payload={price:0}) => {
+
+    return {
+        type: actionTypes.RESET_BURGER_PRICE,
+        payload:payload
+    }
+
+}
+
 
 export const initIngredients = () => {
 

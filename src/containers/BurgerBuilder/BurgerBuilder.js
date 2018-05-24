@@ -21,6 +21,7 @@ class BurgerBuilder extends Component {
     componentDidMount() {
         console.log('[BurgerBuilder]  compoenent did mount');
         this.props.onInitIngredients();
+        this.props.resetBurgerPrice();
     }
 
     updatePurchasableValue = (ingredients) => {
@@ -126,6 +127,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onInitIngredients:()=>{
             return dispatch(burgerBuilderActions.initIngredients());
+        },
+        resetBurgerPrice:()=>{
+            return dispatch(burgerBuilderActions.resetBurgerPrice());
         }
     }
 }
